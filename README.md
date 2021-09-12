@@ -1,15 +1,13 @@
-
-
 # Stock Analysis Utilizing VBA
-## Overview of Project
+## Overview
 My client needs a user-friendly Excel sheet that calculates the total daily volume and returns for 2017 and 2018 stocks.
 I have modified the sheet to do so, however, if more data is added, analysis can become tedious at the current run time. 
-###Purpose
+### Purpose
 In this project, I’ve been tasked with optimizing the current run time and maintaining the integrity of the analysis.
 I will refractor code to ensure a more efficient stock analysis performance.
 
 ### Preprocessing 
-The data contains two charts for the years 2017 and 2018 of 12 select stocks.
+The [data](https://github.com/DWashington3/Stock-Analysis/blob/d4d1b010286d372d51422c991aa376c9d23ccf1d/VBA_Challenge.xlsm) contains two charts for the years 2017 and 2018 of 12 select stocks.
 Each sheet contains the stock's ticker, date, opening price, high, low, closing price, adjusted closing price, and daily volume.
 
 ## Results
@@ -18,14 +16,14 @@ difference in staring price and closing price for each ticker. This means the co
 The worksheets were activated upon the input box, so both 2017 and 2018 had the same run time with this code.
 
 ### Nested Loop Runtime 2017
-
+<img width="486" alt="Original_script_execution_time_2017" src="https://user-images.githubusercontent.com/87162266/132971423-d27e73a9-dda1-43cb-a93c-10104fecb7fb.PNG">
 
 
 ### Nested Loop Runtime 2018
+<img width="469" alt="Original_script_execution_time_2018" src="https://user-images.githubusercontent.com/87162266/132971436-ee89a1e8-b4af-4220-b79b-12073c3c2369.PNG"> 
 
 
-
-## Refractored code
+### Refractored code
 When refactoring the code, I didn’t create any nested loops. I created a code that went through the tickers, starting price, ending price, and total volume at once. Indexing the arrays together enables a quicker analysis. This modification saved 0.828125 seconds in processing time.
 
 
@@ -34,30 +32,30 @@ When refactoring the code, I didn’t create any nested loops. I created a code 
    
 
     
-    '1a) Create a ticker Index
+    ' ticker Index
     Dim tickerindex As Integer
     tickerindex = 0
 
-    '1b) Create three output arrays
+    'output arrays
     Dim tickerVolumes(12) As Long
     Dim tickerStartingPrice(12) As Single
     Dim tickerEndingPrice(12) As Single
         
     
-    ''2a) Create a for loop to initialize the tickerVolumes to zero.
+    ''for loop to initialize the tickerVolumes to zero.
     For i = 0 To 11
         tickerVolumes(i) = 0
     Next i
         
-    ''2b) Loop over all the rows in the spreadsheet.
+    ''Loop over all the rows in the spreadsheet.
     For i = 2 To RowCount
     
-        '3a) Increase volume for current ticker
+        'Increase volume for current ticker
         If Cells(i, 1).Value = tickers(tickerindex) Then
             tickerVolumes(tickerindex) = tickerVolumes(tickerindex) + Cells(i, 8).Value
         End If
             
-        '3b) Check if the current row is the first row with the selected tickerIndex.
+        'Check if the current row is the first row with the selected tickerIndex.
         'If  Then
          If Cells(i - 1, 1).Value <> tickers(tickerindex) And Cells(i, 1).Value = tickers(tickerindex) Then
             tickerStartingPrice(tickerindex) = Cells(i, 6).Value
@@ -65,23 +63,21 @@ When refactoring the code, I didn’t create any nested loops. I created a code 
         End If
         
             
-        '3c) check if the current row is the last row with the selected ticker
+        'check if the current row is the last row with the selected ticker
          'If the next rowâ€™s ticker doesnâ€™t match, increase the tickerIndex.
         'If  Then
             If Cells(i + 1, 1).Value <> tickers(tickerindex) And Cells(i, 1).Value = tickers(tickerindex) Then
                 tickerEndingPrice(tickerindex) = Cells(i, 6).Value
                         
 
-            '3d Increase the tickerIndex.
+            'Increase the tickerIndex.
                 tickerindex = tickerindex + 1
             
-            End If
-            
-        'End If
-    
+            End If    
+        
     Next i
     
-    '4) Loop through arrays to output the Ticker, Total Daily Volume, and Return.
+    'Loop through arrays to output the Ticker, Total Daily Volume, and Return.
     For i = 0 To 11
         Worksheets("All Stocks Analysis").Activate
         
@@ -92,9 +88,10 @@ When refactoring the code, I didn’t create any nested loops. I created a code 
         
    
 ### Improved Analysis Runtime 2017 
-
+<img width="503" alt="VBA_Challenge_2017" src="https://user-images.githubusercontent.com/87162266/132971447-c1b72a92-45ba-4898-9d75-1ec460919629.PNG">
 
 ### Improved Analysis Runtime 2018 
+<img width="505" alt="VBA_Challenge_2018" src="https://user-images.githubusercontent.com/87162266/132971458-abde0c54-1000-4edf-9825-efd85e8fa419.PNG">
 
 ## Summary
 
