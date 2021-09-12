@@ -1,3 +1,4 @@
+
 # Stock Analysis Utilizing VBA
 ## Overview of Project
 My client needs a user-friendly Excel sheet that calculates the total daily volume and returns for 2017 and 2018 stocks.
@@ -16,6 +17,7 @@ difference in staring price and closing price for each ticker. This means the co
 The worksheets were activated upon the input box, so both 2017 and 2018 had the same run time with this code.
 
 ### Nested Loop Runtime 2017
+
 
 
 ### Nested Loop Runtime 2018
