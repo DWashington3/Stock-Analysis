@@ -1,4 +1,5 @@
 
+
 # Stock Analysis Utilizing VBA
 ## Overview of Project
 My client needs a user-friendly Excel sheet that calculates the total daily volume and returns for 2017 and 2018 stocks.
